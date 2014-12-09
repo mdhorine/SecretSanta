@@ -31,27 +31,30 @@ class SantaPlayer:
     def createEmailMessage(self):
         self.msg = MIMEMultipart('alternative')
         self.msg['Subject'] = 'Sibling Gift Exchange'
-        self.msg['From'] = formataddr(('Sibling Gift Exchange', 'mdlhorine@gmail.com'))
+        self.msg['From'] = formataddr(('Secret Santa', 'mdlhorine@gmail.com'))
         self.msg['To'] = 'mdlhorine@gmail.com'
         self.msg['Bcc'] = 'matthew.horine@teachforall.org'
 
         text = """\
         Hi {0},
 
-        Welcome to the Inaugural Siblings Gift Exchange!  You have been assigned to give a gift to {1}.  \
+        Welcome to the Inaugural Sibling Gift Exchange!  You have been assigned to give a gift to {1}.  \
         The recommend spend is $30.
 
-        Merry Christmas!
+        Merry Christmas! See you soon!
+
+        Secret Santa
         """.format(self.name, getName(self.match))
 
         html = """\
         <html>
             <head></head>
             <body>
-                <p>Hi, {0}</p>
-                <p>Welcome to the Inaugural Siblings Gift Exchange!  You have been assigned to give a gift to {1}. \
+                <p>Hi {0},</p>
+                <p>Welcome to the Inaugural Sibling Gift Exchange!  You have been assigned to give a gift to {1}. \
         The recommend spend is $30.</p>
-                <p>Merry Christmas!</p>
+                <p>Merry Christmas! See you soon!</p>
+                <p>Secret Santa</p>
             </body>
         </html>
         """.format(self.name, getName(self.match))
