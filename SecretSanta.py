@@ -3,8 +3,10 @@ __author__ = 'mhorine'
 from SantaPlayer import *
 import random
 import smtplib
+import config
 
 def createPlayers():
+    #TODO Remove hard-coding of players.  Read in text file and return playerList
     playerList = []
     playerList.append(SantaPlayer('Sara', 'sarascrib429@gmail.com', ['Scott', 'Matt', 'Amanda', 'Sam']))
     playerList.append(SantaPlayer('Scott', 'scott.timberg@gmail.com', ['Sara', 'Matt', 'Amanda', 'Sam']))
@@ -47,8 +49,8 @@ for player in playerList:
     print('Current player is ' + player.name)
     drawMatch(player, playerList)
 
-with smtplib.SMTP_SSL("smtp.gmail.com") as smtp:
-    smtp.login('mdlhorine@gmail.com', 'gxmwelgyuhzzeide')
+with smtplib.SMTP_SSL(config.SMTP_Server) as smtp:
+    smtp.login(config.SMTP_User_Name, config.SMTP_Password)
     for player in playerList:
         player.printInfo()
         player.createEmailMessage()
