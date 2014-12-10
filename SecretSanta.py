@@ -6,15 +6,20 @@ import smtplib
 import config
 
 def createPlayers():
-    #TODO Remove hard-coding of players.  Read in text file and return playerList
     playerList = []
-    playerList.append(SantaPlayer('Sara', 'sarascrib429@gmail.com', ['Scott', 'Matt', 'Amanda', 'Sam']))
-    playerList.append(SantaPlayer('Scott', 'scott.timberg@gmail.com', ['Sara', 'Matt', 'Amanda', 'Sam']))
-    playerList.append(SantaPlayer('Matt', 'mdlhorine@gmail.com', 'Amanda'))
-    playerList.append(SantaPlayer('Amanda', 'atimberg@teachfirst.org.uk', 'Matt'))
-    playerList.append(SantaPlayer('Craig', 'craigtimberg@gmail.com', 'Ruey'))
-    playerList.append(SantaPlayer('Ruey', 'rtimberg@gmail.com', 'Craig'))
-    playerList.append(SantaPlayer('Sam', 'samtimberg@gmail.com'))
+
+    with open('players.txt', 'r') as fileIn:
+        for line in fileIn:
+            data = line.strip().split(',', 2)
+            data = [d.strip() for d in data]
+            player = SantaPlayer(data[0], data[1])
+            if data[2]:
+                list = [d.strip(' []') for d in data[2].split(',')]
+                player.addExclusion(list)
+            playerList.append(player)
+        for player in playerList:
+            player.printInfo()
+
     return playerList
 
 def drawMatch(player, list):
@@ -48,6 +53,9 @@ playerList = createPlayers()
 for player in playerList:
     print('Current player is ' + player.name)
     drawMatch(player, playerList)
+
+for player in playerList:
+    player.printInfo()
 
 with smtplib.SMTP_SSL(config.SMTP_Server) as smtp:
     smtp.login(config.SMTP_User_Name, config.SMTP_Password)
