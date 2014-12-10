@@ -31,8 +31,8 @@ class SantaPlayer:
     def createEmailMessage(self):
         self.msg = MIMEMultipart('alternative')
         self.msg['Subject'] = 'Sibling Gift Exchange'
-        self.msg['From'] = formataddr(('Secret Santa', 'mdlhorine@gmail.com'))
-        self.msg['To'] = 'mdlhorine@gmail.com'
+        self.msg['From'] = formataddr(('Timberg Secret Santa', 'mdlhorine@gmail.com'))
+        self.msg['To'] = self.email
         self.msg['Bcc'] = 'matthew.horine@teachforall.org'
 
         text = """\
